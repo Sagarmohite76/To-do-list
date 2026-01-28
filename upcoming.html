@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upcoming - TaskFlow</title>
+    <link rel="stylesheet" href="upcoming.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>" type="image/svg+xml">
+</head>
+
+<body>
+
+    <div class="app">
+
+
+        <input type="checkbox" id="sidebar-toggle" />
+
+
+        <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>TaskFlow</h2>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-item" onclick="allTasks()">
+                    <span class="nav-icon">📋</span>
+                    <span>All Tasks</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item" onclick="Important()">
+                    <span class="nav-icon">📌</span>
+                    <span>Important</span>
+                    <span class="nav-count">3</span>
+                </div>
+                <div class="nav-item" onclick="completed()">
+                    <span class="nav-icon">✅</span>
+                    <span>Completed</span>
+                    <span class="nav-count">16</span>
+                </div>
+                <div class="nav-item" onclick="today()">
+                    <span class="nav-icon">📅</span>
+                    <span>Today</span>
+                    <span class="nav-count">7</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">📆</span>
+                    <span>Upcoming</span>
+                    <span class="nav-count">12</span>
+                </div>
+            </nav>
+
+            <div class="projects">
+                <h3>Projects</h3>
+                <div class="project-item" onclick="workProject()">
+                    <div class="project-color" style="background: #2ec4b6;"></div>
+                    <span>Work Projects</span>
+                </div>
+                <div class="project-item" onclick="personal()">
+                    <div class="project-color" style="background: #ff6b9d;"></div>
+                    <span>Personal</span>
+                </div>
+                <div class="project-item" onclick="learning()">
+                    <div class="project-color" style="background: #f59e0b;"></div>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </aside>
+
+
+        <main class="main">
+
+
+            <div class="mobile-header">
+                <h2>Upcoming</h2>
+                <label for="sidebar-toggle" class="menu-toggle">☰</label>
+            </div>
+
+
+            <div class="main-header">
+                <div class="header-top">
+                    <div class="header-icon">📆</div>
+                    <div>
+                        <h1>Upcoming Tasks</h1>
+                        <p>Plan ahead and stay organized with your future tasks</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="overview-banner">
+                <div class="overview-icon">🗓️</div>
+                <div class="overview-content">
+                    <h3>12 tasks scheduled in the next 30 days</h3>
+                    <p>Stay on top of your deadlines and plan your time effectively</p>
+                </div>
+            </div>
+
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <h3 class="calendar-title">February 2026</h3>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn">←</button>
+                        <button class="calendar-nav-btn">→</button>
+                    </div>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-day-label">Sun</div>
+                    <div class="calendar-day-label">Mon</div>
+                    <div class="calendar-day-label">Tue</div>
+                    <div class="calendar-day-label">Wed</div>
+                    <div class="calendar-day-label">Thu</div>
+                    <div class="calendar-day-label">Fri</div>
+                    <div class="calendar-day-label">Sat</div>
+
+                    <div class="calendar-day other-month">26</div>
+                    <div class="calendar-day other-month">27</div>
+                    <div class="calendar-day today has-tasks">28</div>
+                    <div class="calendar-day has-tasks">29</div>
+                    <div class="calendar-day has-tasks">30</div>
+                    <div class="calendar-day has-tasks">31</div>
+                    <div class="calendar-day">1</div>
+
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day has-tasks">3</div>
+                    <div class="calendar-day has-tasks">4</div>
+                    <div class="calendar-day has-tasks">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day">8</div>
+
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day has-tasks">10</div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day has-tasks">12</div>
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day has-tasks">14</div>
+                    <div class="calendar-day">15</div>
+
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day">22</div>
+
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day has-tasks">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day other-month">1</div>
+                </div>
+            </div>
+
+
+            <div class="upcoming-stats">
+                <div class="upcoming-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">This Week</span>
+                        <span class="stat-emoji">📅</span>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-subtext">Tasks due</div>
+                </div>
+
+                <div class="upcoming-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Next Week</span>
+                        <span class="stat-emoji">📆</span>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-subtext">Tasks scheduled</div>
+                </div>
+
+                <div class="upcoming-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">This Month</span>
+                        <span class="stat-emoji">📊</span>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-subtext">Total upcoming</div>
+                </div>
+
+                <div class="upcoming-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Milestones</span>
+                        <span class="stat-emoji">🎯</span>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-subtext">Major deadlines</div>
+                </div>
+            </div>
+
+            <div class="view-controls">
+                <div class="view-toggle">
+                    <button class="view-btn active">Timeline</button>
+                    <button class="view-btn">Calendar</button>
+                    <button class="view-btn">List</button>
+                </div>
+
+                <select class="filter-dropdown">
+                    <option>All Projects</option>
+                    <option>Work Projects</option>
+                    <option>Personal</option>
+                    <option>Learning</option>
+                </select>
+            </div>
+
+
+            <div class="date-section">
+                <div class="date-header">
+                    <div class="date-badge this-week">
+                        <span class="date-emoji">📅</span>
+                        <span>This Week</span>
+                    </div>
+                    <span class="date-subtitle">4 tasks</span>
+                </div>
+
+                <div class="date-tasks-grid">
+
+                    <div class="upcoming-task high">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Submit Q1 financial report</div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                <div class="task-description">Compile and submit quarterly financial statements to the
+                                    board of directors</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Friday, Jan 31</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>👤</span>
+                                        <span>You</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Plan team offsite event</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Organize venue, activities, and schedule for Q1 team
+                                    building event</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Saturday, Feb 1</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>👥</span>
+                                        <span>Team</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Dentist appointment</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">Regular checkup and cleaning</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Tuesday, Feb 4</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>🕐</span>
+                                        <span>2:00 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Review architectural design docs</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Review and provide feedback on the new microservices
+                                    architecture proposal</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Thursday, Feb 6</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>📎</span>
+                                        <span>5 docs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="date-section">
+                <div class="date-header">
+                    <div class="date-badge next-week">
+                        <span class="date-emoji">📆</span>
+                        <span>Next Week</span>
+                    </div>
+                    <span class="date-subtitle">5 tasks</span>
+                </div>
+
+                <div class="date-tasks-grid">
+
+                    <div class="milestone-card">
+                        <div class="milestone-header">
+                            <span class="milestone-icon">🎯</span>
+                            <h4 class="milestone-title">Product Launch Milestone</h4>
+                        </div>
+                        <div class="milestone-description">
+                            Major release of v2.0 with new features and improvements
+                        </div>
+                        <div class="milestone-footer">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-date">
+                                <span class="task-date-icon">📅</span>
+                                <span>Monday, Feb 10</span>
+                            </div>
+                            <div class="task-assignee">
+                                <span>👥</span>
+                                <span>Full team</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task high">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Complete security audit</div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                <div class="task-description">Conduct comprehensive security review before product
+                                    launch</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Tuesday, Feb 11</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>🔒</span>
+                                        <span>Security team</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Update customer documentation</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Revise user guides and API docs for v2.0 release</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Wednesday, Feb 12</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>📝</span>
+                                        <span>Documentation</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Valentine's Day dinner reservation</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">Book restaurant for Valentine's Day celebration</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Friday, Feb 14</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>❤️</span>
+                                        <span>Special</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Complete JavaScript course module 5</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Finish advanced async/await and promises section</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Learning</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Sunday, Feb 16</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>📚</span>
+                                        <span>Self-paced</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="date-section">
+                <div class="date-header">
+                    <div class="date-badge later">
+                        <span class="date-emoji">🔮</span>
+                        <span>Later This Month</span>
+                    </div>
+                    <span class="date-subtitle">3 tasks</span>
+                </div>
+
+                <div class="date-tasks-grid">
+
+                    <div class="upcoming-task high">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Annual performance reviews</div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                <div class="task-description">Conduct and submit performance evaluations for team
+                                    members</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Tuesday, Feb 25</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>👥</span>
+                                        <span>8 people</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Plan March sprint goals</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Define objectives and key results for next month's
+                                    development sprint</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Friday, Feb 28</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>🎯</span>
+                                        <span>Planning</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Car maintenance service</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">Schedule and complete routine 6-month car service</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-date">
+                                        <span class="task-date-icon">📅</span>
+                                        <span>Saturday, Mar 1</span>
+                                    </div>
+                                    <div class="task-assignee">
+                                        <span>🚗</span>
+                                        <span>Maintenance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+    <script src="connect.js"></script>
+</body>
+
+</html>

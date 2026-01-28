@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <h2>Weather App</h2>
+
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function getWeather() {
+            const city = document.getElementById("city").value.trim();
+            const apiKey = "2d1d9aba2c467b9612f0486a15d838a5";
+
+            if (!city) {
+                document.getElementById("result").innerText = "Please enter a city name ❗";
+                return;
+            }
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Change your checks to this for better reliability:
+                    if (data.cod == 404) {
+                        document.getElementById("result").innerText = "City not found ❌";
+                    } else if (data.cod == 401) {
+                        document.getElementById("result").innerText = "API key not activated yet ⏳";
+                    } else {
+                        document.getElementById("result").innerText =
+                            `🌡️ Temperature in ${data.name}: ${data.main.temp}°C`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("result").innerText = "Something went wrong ⚠️";
+                    console.log(error);
+                });
+        }
+    </script>
+
+</body>
+
+</html>

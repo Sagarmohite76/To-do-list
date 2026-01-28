@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Completed Tasks - TaskFlow</title>
+    <link rel="stylesheet" href="completed.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>" type="image/svg+xml">
+</head>
+
+<body>
+
+    <div class="app">
+
+
+        <input type="checkbox" id="sidebar-toggle" />
+
+
+        <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>TaskFlow</h2>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-item" onclick="allTasks()">
+                    <span class="nav-icon">📋</span>
+                    <span>All Tasks</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item" onclick="Important()">
+                    <span class="nav-icon">📌</span>
+                    <span>Important</span>
+                    <span class="nav-count">3</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">✅</span>
+                    <span>Completed</span>
+                    <span class="nav-count">16</span>
+                </div>
+                <div class="nav-item" onclick="today()">
+                    <span class="nav-icon">📅</span>
+                    <span>Today</span>
+                    <span class="nav-count">5</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" onclick="upcoming()">📆</span>
+                    <span>Upcoming</span>
+                </div>
+            </nav>
+
+            <div class="projects">
+                <h3>Projects</h3>
+                <div class="project-item" onclick="workProject()">
+                    <div class="project-color" style="background: #2ec4b6;"></div>
+                    <span>Work Projects</span>
+                </div>
+                <div class="project-item" onclick="personal()">
+                    <div class="project-color" style="background: #ff6b9d;"></div>
+                    <span>Personal</span>
+                </div>
+                <div class="project-item" onclick="learning()">
+                    <div class="project-color" style="background: #f59e0b;"></div>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="mobile-header">
+                <h2>Completed Tasks</h2>
+                <label for="sidebar-toggle" class="menu-toggle">☰</label>
+            </div>
+
+
+            <div class="main-header">
+                <div class="header-top">
+                    <div class="header-icon">✓</div>
+                    <div>
+                        <h1>Completed Tasks</h1>
+                        <p>Celebrate your accomplishments and track your progress</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="celebration-banner">
+                <div class="celebration-icon">🎉</div>
+                <div class="celebration-content">
+                    <h3>Great work! You've completed 16 tasks</h3>
+                    <p>You're on a 5-day streak! Keep up the momentum.</p>
+                </div>
+            </div>
+
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">This Week</span>
+                        <div class="stat-icon">📅</div>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-subtext">Tasks completed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">This Month</span>
+                        <div class="stat-icon">📊</div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-subtext">Total completions</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Success Rate</span>
+                        <div class="stat-icon">🎯</div>
+                    </div>
+                    <div class="stat-value">89%</div>
+                    <div class="stat-subtext">Completion rate</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Current Streak</span>
+                        <div class="stat-icon">🔥</div>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-subtext">Days in a row</div>
+                </div>
+            </div>
+
+
+            <div class="achievements-section">
+                <div class="achievements-header">
+                    <h3>Recent Achievements</h3>
+                    <span>🏆</span>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-badge">
+                        <div class="badge-icon">🚀</div>
+                        <div class="badge-title">Quick Starter</div>
+                        <div class="badge-desc">10 tasks in 1 day</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="badge-icon">⚡</div>
+                        <div class="badge-title">Speed Demon</div>
+                        <div class="badge-desc">5-day streak</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="badge-icon">💪</div>
+                        <div class="badge-title">Consistency</div>
+                        <div class="badge-desc">30 days active</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="badge-icon">🎯</div>
+                        <div class="badge-title">Perfectionist</div>
+                        <div class="badge-desc">100% week</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filters">
+                    <button class="filter-btn active">All Time</button>
+                    <button class="filter-btn">Today</button>
+                    <button class="filter-btn">This Week</button>
+                    <button class="filter-btn">This Month</button>
+                </div>
+                <button class="clear-all-btn">🗑️ Clear All</button>
+            </div>
+
+
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <span class="timeline-date">Today</span>
+                    <span class="timeline-count">3 tasks</span>
+                </div>
+
+                <div class="timeline-tasks">
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Review and merge pull requests</div>
+                                <div class="task-description">Checked code quality and approved team changes</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 2:30 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Update project documentation</div>
+                                <div class="task-description">Added API endpoints and usage examples</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 11:15 AM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Morning workout routine</div>
+                                <div class="task-description">30 min cardio and strength training</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Personal</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 7:00 AM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <span class="timeline-date">Yesterday</span>
+                    <span class="timeline-count">5 tasks</span>
+                </div>
+
+                <div class="timeline-tasks">
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Fix authentication bug</div>
+                                <div class="task-description">Resolved session timeout issues</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 5:45 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Team standup meeting</div>
+                                <div class="task-description">Discussed sprint progress and blockers</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 10:00 AM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Grocery shopping</div>
+                                <div class="task-description">Weekly meal prep supplies</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Personal</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 6:30 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Complete React tutorial chapter 3</div>
+                                <div class="task-description">Learned about hooks and state management</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Learning</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 8:00 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Respond to client emails</div>
+                                <div class="task-description">Addressed all pending inquiries</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">✓</span>
+                                <span>Completed at 3:15 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <span class="timeline-date">Earlier This Week</span>
+                    <span class="timeline-count">8 tasks</span>
+                </div>
+
+                <div class="timeline-tasks">
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Prepare Q4 presentation slides</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span>Monday, 2:00 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Database optimization tasks</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Work Projects</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span>Monday, 4:30 PM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                    <div class="completed-task">
+                        <div class="task-main-content">
+                            <div class="checkmark">✓</div>
+                            <div class="task-text">
+                                <div class="task-title">Schedule dentist appointment</div>
+                            </div>
+                        </div>
+                        <div class="task-meta-row">
+                            <span class="task-tag">Personal</span>
+                            <div class="task-meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span>Tuesday, 9:00 AM</span>
+                            </div>
+                            <button class="undo-btn">↺ Undo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+    <script src="connect.js"></script>
+</body>
+
+</html>

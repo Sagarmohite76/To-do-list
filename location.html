@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation Example</title>
+</head>
+<body>
+
+    <h2>Geolocation Test</h2>
+    <p>Open console to see output</p>
+
+    <script>
+        function getCurrentCityName() {
+            if (!navigator.geolocation) {
+                console.error("❌ Geolocation not supported by this browser");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    console.log("📍 Latitude:", lat);
+                    console.log("📍 Longitude:", lon);
+
+                    reverseGeocode(lat, lon);
+                },
+                (error) => {
+                    console.error("❌ Geolocation error:", error.message);
+                }
+            );
+        }
+
+        function reverseGeocode(lat, lon) {
+            const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
+
+            fetch(url, {
+                headers: {
+                    "User-Agent": "geo-demo-app"
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("📦 API Response:", data);
+
+                    const address = data.address || {};
+                    const city =
+                        address.city ||
+                        address.town ||
+                        address.village ||
+                        address.state;
+
+                    if (city) {
+                        console.log("🏙️ Current City:", city);
+                    } else {
+                        console.warn("⚠️ City not found");
+                    }
+                })
+                .catch(err => {
+                    console.error("❌ Reverse geocoding failed:", err);
+                });
+        }
+
+        // Auto-run on page load
+        getCurrentCityName();
+    </script>
+
+</body>
+</html>

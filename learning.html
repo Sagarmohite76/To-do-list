@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning - TaskFlow</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>"
+    type="image/svg+xml">
+  <link rel="stylesheet" href="learning.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <input type="checkbox" id="sidebar-toggle" />
+
+    <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">✓</div>
+        <h2>TaskFlow</h2>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-item" onclick="allTasks()">
+          <span class="nav-icon">📋</span>
+          <span>All Tasks</span>
+          <span class="nav-count">24</span>
+        </div>
+        <div class="nav-item" onclick="Important()">
+          <span class="nav-icon">📌</span>
+          <span>Important</span>
+          <span class="nav-count">5</span>
+        </div>
+        <div class="nav-item" onclick="completed()">
+          <span class="nav-icon">✅</span>
+          <span>Completed</span>
+          <span class="nav-count">42</span>
+        </div>
+        <div class="nav-item" onclick="today()">
+          <span class="nav-icon">📅</span>
+          <span>Today</span>
+          <span class="nav-count">7</span>
+        </div>
+        <div class="nav-item" onclick="upcoming()">
+          <span class="nav-icon">📆</span>
+          <span>Upcoming</span>
+          <span class="nav-count">12</span>
+        </div>
+      </nav>
+
+      <div class="projects">
+        <h3>Projects</h3>
+        <div class="project-item" onclick="workProject()">
+          <div class="project-color" style="background: #2ec4b6;"></div>
+          <span>Work Projects</span>
+        </div>
+        <div class="project-item" onclick="personal()">
+          <div class="project-color" style="background: #ff6b9d;"></div>
+          <span>Personal</span>
+        </div>
+        <div class="project-item active">
+          <div class="project-color" style="background: #f59e0b;"></div>
+          <span>Learning</span>
+        </div>
+      </div>
+    </aside>
+
+
+    <main class="main">
+      <div class="mobile-header">
+        <h2>Learning</h2>
+        <label for="sidebar-toggle" class="menu-toggle">☰</label>
+      </div>
+
+
+      <div class="learning-header">
+        <div class="header-content">
+          <div class="header-top">
+            <div class="header-left">
+              <div class="header-title-row">
+                <div class="header-icon">📚</div>
+                <h1>Learning Journey</h1>
+              </div>
+              <p class="header-subtitle">Expand your knowledge and master new skills</p>
+            </div>
+
+            <div class="learning-streak">
+              <div class="streak-item">
+                <div class="streak-value">🔥 12</div>
+                <div class="streak-label">Day Streak</div>
+              </div>
+              <div style="width: 1px; height: 40px; background: var(--border);"></div>
+              <div class="streak-item">
+                <div class="streak-value">4.5h</div>
+                <div class="streak-label">This Week</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="study-time-section">
+        <div class="study-time-header">
+          <h3>⏱️ Study Time</h3>
+          <div class="time-filter">
+            <button class="time-filter-btn active">Week</button>
+            <button class="time-filter-btn">Month</button>
+            <button class="time-filter-btn">Year</button>
+          </div>
+        </div>
+
+        <div class="study-stats-grid">
+          <div class="study-stat">
+            <div class="study-stat-value">4.5h</div>
+            <div class="study-stat-label">This Week</div>
+          </div>
+          <div class="study-stat">
+            <div class="study-stat-value">18h</div>
+            <div class="study-stat-label">This Month</div>
+          </div>
+          <div class="study-stat">
+            <div class="study-stat-value">3</div>
+            <div class="study-stat-label">Active Courses</div>
+          </div>
+          <div class="study-stat">
+            <div class="study-stat-value">15</div>
+            <div class="study-stat-label">Completed</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="courses-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span>🎓</span>
+            <span>Active Courses</span>
+          </h2>
+          <span class="view-all-btn">View All →</span>
+        </div>
+
+        <div class="courses-grid">
+
+          <div class="course-card">
+            <div class="course-banner" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+              <span>💻</span>
+              <div class="course-platform">Udemy</div>
+            </div>
+            <div class="course-content">
+              <div class="course-header">
+                <div class="course-title">Complete JavaScript Course 2026</div>
+                <div class="course-instructor">by Jonas Schmedtmann</div>
+              </div>
+              <div class="course-progress">
+                <div class="course-progress-label">
+                  <span>Progress</span>
+                  <span>65%</span>
+                </div>
+                <div class="course-progress-bar">
+                  <div class="course-progress-fill" style="width: 65%;"></div>
+                </div>
+              </div>
+              <div class="course-meta">
+                <div class="course-meta-item">
+                  <span>📹</span>
+                  <span>52/80 lessons</span>
+                </div>
+                <div class="course-meta-item">
+                  <span>⏱️</span>
+                  <span>8h left</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-card">
+            <div class="course-banner" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">
+              <span>🎨</span>
+              <div class="course-platform">Skillshare</div>
+            </div>
+            <div class="course-content">
+              <div class="course-header">
+                <div class="course-title">UI/UX Design Masterclass</div>
+                <div class="course-instructor">by Sarah Johnson</div>
+              </div>
+              <div class="course-progress">
+                <div class="course-progress-label">
+                  <span>Progress</span>
+                  <span>38%</span>
+                </div>
+                <div class="course-progress-bar">
+                  <div class="course-progress-fill" style="width: 38%;"></div>
+                </div>
+              </div>
+              <div class="course-meta">
+                <div class="course-meta-item">
+                  <span>📹</span>
+                  <span>12/32 lessons</span>
+                </div>
+                <div class="course-meta-item">
+                  <span>⏱️</span>
+                  <span>15h left</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-card">
+            <div class="course-banner" style="background: linear-gradient(135deg, #10b981, #2ec4b6);">
+              <span>🤖</span>
+              <div class="course-platform">Coursera</div>
+            </div>
+            <div class="course-content">
+              <div class="course-header">
+                <div class="course-title">Machine Learning Specialization</div>
+                <div class="course-instructor">by Andrew Ng</div>
+              </div>
+              <div class="course-progress">
+                <div class="course-progress-label">
+                  <span>Progress</span>
+                  <span>22%</span>
+                </div>
+                <div class="course-progress-bar">
+                  <div class="course-progress-fill" style="width: 22%;"></div>
+                </div>
+              </div>
+              <div class="course-meta">
+                <div class="course-meta-item">
+                  <span>📹</span>
+                  <span>8/36 lessons</span>
+                </div>
+                <div class="course-meta-item">
+                  <span>⏱️</span>
+                  <span>28h left</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="skills-section">
+        <h3>📊 Skills Progress</h3>
+
+        <div class="skills-grid">
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <div class="skill-name">JavaScript / TypeScript</div>
+              <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-progress">
+              <div class="skill-progress-bar">
+                <div class="skill-progress-fill" style="width: 85%;"></div>
+              </div>
+              <div class="skill-percentage">85%</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <div class="skill-name">React & Next.js</div>
+              <div class="skill-level">Intermediate</div>
+            </div>
+            <div class="skill-progress">
+              <div class="skill-progress-bar">
+                <div class="skill-progress-fill" style="width: 68%;"></div>
+              </div>
+              <div class="skill-percentage">68%</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <div class="skill-name">UI/UX Design</div>
+              <div class="skill-level">Beginner</div>
+            </div>
+            <div class="skill-progress">
+              <div class="skill-progress-bar">
+                <div class="skill-progress-fill" style="width: 35%;"></div>
+              </div>
+              <div class="skill-percentage">35%</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <div class="skill-name">Python & Data Science</div>
+              <div class="skill-level">Beginner</div>
+            </div>
+            <div class="skill-progress">
+              <div class="skill-progress-bar">
+                <div class="skill-progress-fill" style="width: 28%;"></div>
+              </div>
+              <div class="skill-percentage">28%</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="learning-tasks-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span>✏️</span>
+            <span>Learning Tasks</span>
+          </h2>
+        </div>
+
+        <div class="tasks-grid">
+
+          <div class="learning-task">
+            <div class="task-top">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-header-row">
+                  <div class="task-title">Complete module 4: Advanced Functions</div>
+                  <span class="task-type-badge">Video</span>
+                </div>
+                <div class="task-description">Watch lectures on closures, callbacks, and arrow functions</div>
+                <div class="task-footer-row">
+                  <span class="task-tag">JavaScript Course</span>
+                  <div class="task-duration">
+                    <span>⏱️</span>
+                    <span>45 min</span>
+                  </div>
+                  <div class="task-duration">
+                    <span>📅</span>
+                    <span>Due Today</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="learning-task">
+            <div class="task-top">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-header-row">
+                  <div class="task-title">Practice: Build a color palette generator</div>
+                  <span class="task-type-badge">Project</span>
+                </div>
+                <div class="task-description">Create an interactive tool to generate color schemes</div>
+                <div class="task-footer-row">
+                  <span class="task-tag">UI/UX Design</span>
+                  <div class="task-duration">
+                    <span>⏱️</span>
+                    <span>2 hours</span>
+                  </div>
+                  <div class="task-duration">
+                    <span>📅</span>
+                    <span>Tomorrow</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="learning-task">
+            <div class="task-top">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-header-row">
+                  <div class="task-title">Read: Linear Regression fundamentals</div>
+                  <span class="task-type-badge">Reading</span>
+                </div>
+                <div class="task-description">Study chapter 3 on regression analysis and cost functions</div>
+                <div class="task-footer-row">
+                  <span class="task-tag">Machine Learning</span>
+                  <div class="task-duration">
+                    <span>⏱️</span>
+                    <span>1 hour</span>
+                  </div>
+                  <div class="task-duration">
+                    <span>📅</span>
+                    <span>Feb 1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="learning-task">
+            <div class="task-top">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <div class="task-header-row">
+                  <div class="task-title">Quiz: React Hooks Assessment</div>
+                  <span class="task-type-badge">Quiz</span>
+                </div>
+                <div class="task-description">Test knowledge on useState, useEffect, and custom hooks</div>
+                <div class="task-footer-row">
+                  <span class="task-tag">JavaScript Course</span>
+                  <div class="task-duration">
+                    <span>⏱️</span>
+                    <span>30 min</span>
+                  </div>
+                  <div class="task-duration">
+                    <span>📅</span>
+                    <span>Feb 2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="certificates-section">
+        <div class="certificates-header">
+          <h3>
+            <span>🏆</span>
+            <span>Earned Certificates</span>
+          </h3>
+          <span class="view-all-btn">View All →</span>
+        </div>
+
+        <div class="certificates-grid">
+
+          <div class="certificate-card">
+            <div class="certificate-icon">🎓</div>
+            <div class="certificate-name">HTML & CSS Mastery</div>
+            <div class="certificate-date">Completed Jan 2026</div>
+          </div>
+
+          <div class="certificate-card">
+            <div class="certificate-icon">⚛️</div>
+            <div class="certificate-name">React Fundamentals</div>
+            <div class="certificate-date">Completed Dec 2025</div>
+          </div>
+
+          <div class="certificate-card">
+            <div class="certificate-icon">💻</div>
+            <div class="certificate-name">JavaScript Basics</div>
+            <div class="certificate-date">Completed Nov 2025</div>
+          </div>
+
+          <div class="certificate-card">
+            <div class="certificate-icon">🎨</div>
+            <div class="certificate-name">Figma Essentials</div>
+            <div class="certificate-date">Completed Oct 2025</div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+  <script src="connect.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Today - TaskFlow</title>
+    <link rel="stylesheet" href="today.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>" type="image/svg+xml">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <input type="checkbox" id="sidebar-toggle" />
+
+
+        <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>TaskFlow</h2>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-item" onclick="allTasks()">
+                    <span class="nav-icon">📋</span>
+                    <span>All Tasks</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item" onclick="Important()">
+                    <span class="nav-icon">📌</span>
+                    <span>Important</span>
+                    <span class="nav-count">3</span>
+                </div>
+                <div class="nav-item" onclick="completed()">
+                    <span class="nav-icon">✅</span>
+                    <span>Completed</span>
+                    <span class="nav-count">16</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">📅</span>
+                    <span>Today</span>
+                    <span class="nav-count">7</span>
+                </div>
+                <div class="nav-item" onclick="upcoming()">
+                    <span class="nav-icon">📆</span>
+                    <span>Upcoming</span>
+                </div>
+            </nav>
+
+            <div class="projects">
+                <h3>Projects</h3>
+                <div class="project-item" onclick="workProject()">
+                    <div class="project-color" style="background: #2ec4b6;"></div>
+                    <span>Work Projects</span>
+                </div>
+                <div class="project-item" onclick="personal()">
+                    <div class="project-color" style="background: #ff6b9d;"></div>
+                    <span>Personal</span>
+                </div>
+                <div class="project-item" onclick="learning()">
+                    <div class="project-color" style="background: #f59e0b;"></div>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </aside>
+
+
+        <main class="main">
+
+            <div class="mobile-header">
+                <h2>Today</h2>
+                <label for="sidebar-toggle" class="menu-toggle">☰</label>
+            </div>
+
+            <div class="main-header">
+                <div class="header-top">
+                    <div class="header-left">
+                        <div class="header-icon">☀️</div>
+                        <div>
+                            <h1>Today</h1>
+                            <div class="header-date">
+                                <span id="day"></span>,
+                                <span id="month"></span>
+                                <span id="date"></span>,
+                                <span id="year"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-widget">
+                        <div class="weather-icon">⛅</div>
+                        <div class="weather-info">
+                            <div class="weather-temp" id="temp">22°C</div>
+                            <div id="condition">Partly Cloudy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="focus-banner">
+                <div class="focus-icon">🎯</div>
+                <div class="focus-content">
+                    <h3>Your Focus for Today</h3>
+                    <p>Start with your most important task to set the tone for a productive day</p>
+                    <div class="focus-task">Fix critical production bug in authentication</div>
+                </div>
+            </div>
+
+
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Due Today</span>
+                        <span class="stat-emoji">📝</span>
+                    </div>
+                    <div class="stat-value">7</div>
+                </div>
+
+                <div class="quick-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-emoji">✅</span>
+                    </div>
+                    <div class="stat-value">3</div>
+                </div>
+
+                <div class="quick-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Time Left</span>
+                        <span class="stat-emoji">⏰</span>
+                    </div>
+                    <div class="stat-value">12h</div>
+                </div>
+
+                <div class="quick-stat">
+                    <div class="stat-top">
+                        <span class="stat-label">Progress</span>
+                        <span class="stat-emoji">📊</span>
+                    </div>
+                    <div class="stat-value">43%</div>
+                </div>
+            </div>
+
+
+            <div class="quick-add">
+                <form class="quick-add-form">
+                    <input type="text" class="quick-add-input" placeholder="Add a task for today..." />
+                    <button type="submit" class="quick-add-btn">+ Add to Today</button>
+                </form>
+            </div>
+
+
+            <div class="time-block-section">
+                <div class="time-block-header">
+                    <div class="time-indicator current">
+                        <div class="time-dot"></div>
+                        <span>Morning (6 AM - 12 PM)</span>
+                    </div>
+                    <span class="time-task-count">3 tasks</span>
+                </div>
+
+                <div class="time-tasks-grid">
+
+                    <div class="today-task high">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Fix critical production bug in authentication</div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                <div class="task-description">Users are unable to log in due to session timeout issues.
+                                    This needs immediate attention to restore service.</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>9:00 AM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>2 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="today-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Morning workout routine</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">30 minutes of cardio and strength training to start the
+                                    day energized</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>7:00 AM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>30 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="today-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Team standup meeting</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Daily sync with the team to discuss progress and blockers
+                                </div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>10:00 AM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>15 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="time-block-section">
+                <div class="time-block-header">
+                    <div class="time-indicator">
+                        <div class="time-dot"></div>
+                        <span>Afternoon (12 PM - 6 PM)</span>
+                    </div>
+                    <span class="time-task-count">2 tasks</span>
+                </div>
+
+                <div class="time-tasks-grid">
+
+                    <div class="today-task high">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Client presentation review</div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                <div class="task-description">Final review of Q1 presentation slides before tomorrow's
+                                    client meeting</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>2:00 PM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>1 hour</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="today-task medium">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Code review for team PRs</div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                <div class="task-description">Review 3 pending pull requests from team members</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>4:00 PM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>45 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="evening-section">
+                <div class="evening-header">
+                    <div class="time-indicator">
+                        <div class="time-dot"></div>
+                        <span>Evening (6 PM - 11 PM)</span>
+                    </div>
+                    <span class="time-task-count">2 tasks</span>
+                </div>
+
+                <div class="evening-tasks-grid">
+
+                    <div class="evening-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Grocery shopping</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">Pick up ingredients for weekly meal prep</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>6:30 PM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>45 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="evening-task low">
+                        <div class="task-top">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-header-row">
+                                    <div class="task-title">Complete React tutorial chapter 4</div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                                <div class="task-description">Learn about useEffect and lifecycle methods</div>
+                                <div class="task-footer-row">
+                                    <span class="task-tag">Learning</span>
+                                    <div class="task-time">
+                                        <span class="task-time-icon">🕐</span>
+                                        <span>8:00 PM</span>
+                                    </div>
+                                    <div class="task-duration">
+                                        <span>⏱️</span>
+                                        <span>1 hour</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+        let now = new Date();
+        document.getElementById("date").textContent = now.getDate();
+
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        document.getElementById("day").textContent = days[now.getDay()];
+
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+        document.getElementById("month").textContent = months[now.getMonth()];
+        document.getElementById("year").textContent = now.getFullYear();
+
+
+        function getWheather(city) {
+            const apiKey = '2d1d9aba2c467b9612f0486a15d838a5';
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("temp").textContent = `${data.main.temp}°C`;
+                    document.getElementById("condition").textContent = data.weather[0].description;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                });
+        };
+
+        async function getCity() {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+                            .then(res => res.json())
+                            .then(data => {
+                                resolve(data.address.county);
+                            })
+                            .catch(err => {
+                                reject(err)
+                            })
+                    }
+                )
+            })
+        }
+        getCity().then(reso => getWheather(reso));
+
+    </script>
+    <script src="connect.js"></script>
+</body>
+
+</html>

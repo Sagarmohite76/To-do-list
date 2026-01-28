@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal - TaskFlow</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>"
+    type="image/svg+xml">
+  <link rel="stylesheet" href="personal.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- Hidden checkbox for sidebar toggle -->
+    <input type="checkbox" id="sidebar-toggle" />
+
+    <!-- Overlay for mobile sidebar -->
+    <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">✓</div>
+        <h2>TaskFlow</h2>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-item" onclick="allTasks()">
+          <span class="nav-icon">📋</span>
+          <span>All Tasks</span>
+          <span class="nav-count">24</span>
+        </div>
+        <div class="nav-item" onclick="Important()">
+          <span class="nav-icon">📌</span>
+          <span>Important</span>
+          <span class="nav-count">5</span>
+        </div>
+        <div class="nav-item" onclick="completed()">
+          <span class="nav-icon">✅</span>
+          <span>Completed</span>
+          <span class="nav-count">42</span>
+        </div>
+        <div class="nav-item" onclick="today()">
+          <span class="nav-icon">📅</span>
+          <span>Today</span>
+          <span class="nav-count">7</span>
+        </div>
+        <div class="nav-item" onclick="upcoming()">
+          <span class="nav-icon">📆</span>
+          <span>Upcoming</span>
+          <span class="nav-count">12</span>
+        </div>
+      </nav>
+
+      <div class="projects">
+        <h3>Projects</h3>
+        <div class="project-item" onclick="workProject()">
+          <div class="project-color" style="background: #2ec4b6;"></div>
+          <span>Work Projects</span>
+        </div>
+        <div class="project-item active">
+          <div class="project-color" style="background: #ff6b9d;"></div>
+          <span>Personal</span>
+        </div>
+        <div class="project-item" onclick="learning()">
+          <div class="project-color" style="background: #f59e0b;"></div>
+          <span>Learning</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <h2>Personal</h2>
+        <label for="sidebar-toggle" class="menu-toggle">☰</label>
+      </div>
+
+      <!-- Personal Header -->
+      <div class="personal-header">
+        <div class="header-top">
+          <div class="header-left">
+            <div class="header-title-row">
+              <div class="header-icon">🌸</div>
+              <h1>Personal Life</h1>
+            </div>
+            <p class="header-subtitle">Balance, wellness, and personal growth</p>
+          </div>
+        </div>
+
+        <div class="header-quote">
+          💭 "Take care of yourself first. You can't pour from an empty cup."
+        </div>
+      </div>
+
+      <!-- Wellness Dashboard -->
+      <div class="wellness-section">
+        <h2 class="section-title">
+          <span>🌟</span>
+          <span>Wellness Dashboard</span>
+        </h2>
+
+        <div class="wellness-grid">
+          <div class="wellness-card">
+            <div class="wellness-icon">💪</div>
+            <div class="wellness-title">Fitness</div>
+            <div class="wellness-value">4/7</div>
+            <div class="wellness-subtext">Workouts this week</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-icon">😴</div>
+            <div class="wellness-title">Sleep</div>
+            <div class="wellness-value">7.5h</div>
+            <div class="wellness-subtext">Average per night</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-icon">💧</div>
+            <div class="wellness-title">Hydration</div>
+            <div class="wellness-value">2.1L</div>
+            <div class="wellness-subtext">Water today</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-icon">🧘</div>
+            <div class="wellness-title">Mindfulness</div>
+            <div class="wellness-value">15m</div>
+            <div class="wellness-subtext">Meditation today</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Habits Tracker -->
+      <div class="habits-section">
+        <div class="habits-header">
+          <h3>🎯 Daily Habits</h3>
+          <div class="habits-streak">
+            <span>🔥</span>
+            <span>5 Day Streak</span>
+          </div>
+        </div>
+
+        <div class="habits-list">
+
+          <div class="habit-item completed">
+            <div class="habit-checkbox"></div>
+            <div class="habit-info">
+              <div class="habit-name">Morning workout</div>
+              <div class="habit-time">Completed at 7:00 AM</div>
+            </div>
+            <div class="habit-streak">
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+            </div>
+          </div>
+
+          <div class="habit-item completed">
+            <div class="habit-checkbox"></div>
+            <div class="habit-info">
+              <div class="habit-name">Drink 8 glasses of water</div>
+              <div class="habit-time">6/8 glasses today</div>
+            </div>
+            <div class="habit-streak">
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+            </div>
+          </div>
+
+          <div class="habit-item">
+            <div class="habit-checkbox"></div>
+            <div class="habit-info">
+              <div class="habit-name">Read for 30 minutes</div>
+              <div class="habit-time">Not started</div>
+            </div>
+            <div class="habit-streak">
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot"></div>
+            </div>
+          </div>
+
+          <div class="habit-item">
+            <div class="habit-checkbox"></div>
+            <div class="habit-info">
+              <div class="habit-name">Evening meditation</div>
+              <div class="habit-time">Not started</div>
+            </div>
+            <div class="habit-streak">
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot active"></div>
+              <div class="streak-dot"></div>
+              <div class="streak-dot"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Life Categories -->
+      <div class="categories-section">
+        <h2 class="section-title">
+          <span>📂</span>
+          <span>Life Categories</span>
+        </h2>
+
+        <div class="categories-grid">
+
+          <div class="category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper">
+                <span>❤️</span>
+              </div>
+              <div class="category-count">3</div>
+            </div>
+            <div class="category-title">Health & Fitness</div>
+            <div class="category-tasks-preview">
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Schedule annual checkup</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Meal prep for the week</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Sign up for yoga class</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper">
+                <span>🏠</span>
+              </div>
+              <div class="category-count">4</div>
+            </div>
+            <div class="category-title">Home & Errands</div>
+            <div class="category-tasks-preview">
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Grocery shopping</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Clean living room</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Pay utility bills</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper">
+                <span>💰</span>
+              </div>
+              <div class="category-count">2</div>
+            </div>
+            <div class="category-title">Finance</div>
+            <div class="category-tasks-preview">
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Review monthly budget</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Update investment portfolio</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper">
+                <span>👨‍👩‍👧</span>
+              </div>
+              <div class="category-count">3</div>
+            </div>
+            <div class="category-title">Family & Social</div>
+            <div class="category-tasks-preview">
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Call mom</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Plan weekend trip</span>
+              </div>
+              <div class="category-task-item">
+                <div class="category-task-dot"></div>
+                <span>Birthday gift for friend</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Personal Goals -->
+      <div class="goals-section">
+        <div class="goals-header">
+          <h3>🎯 Personal Goals 2026</h3>
+          <button class="add-goal-btn">+ New Goal</button>
+        </div>
+
+        <div class="goals-list">
+
+          <div class="goal-item">
+            <div class="goal-header-row">
+              <h4 class="goal-title">Read 24 books this year</h4>
+              <span class="goal-badge">In Progress</span>
+            </div>
+            <p class="goal-description">Expand knowledge and enjoy more fiction and non-fiction</p>
+            <div class="goal-progress">
+              <div class="goal-progress-label">
+                <span>Progress</span>
+                <span>3 of 24 books</span>
+              </div>
+              <div class="goal-progress-bar">
+                <div class="goal-progress-fill" style="width: 12.5%;"></div>
+              </div>
+            </div>
+            <div class="goal-meta">
+              <span>📅 Started Jan 1, 2026</span>
+              <span>🎯 Target: Dec 31, 2026</span>
+            </div>
+          </div>
+
+          <div class="goal-item">
+            <div class="goal-header-row">
+              <h4 class="goal-title">Run a half marathon</h4>
+              <span class="goal-badge">In Progress</span>
+            </div>
+            <p class="goal-description">Complete a 21K race to improve fitness and endurance</p>
+            <div class="goal-progress">
+              <div class="goal-progress-label">
+                <span>Training Progress</span>
+                <span>Week 4 of 12</span>
+              </div>
+              <div class="goal-progress-bar">
+                <div class="goal-progress-fill" style="width: 33%;"></div>
+              </div>
+            </div>
+            <div class="goal-meta">
+              <span>📅 Race Date: April 15, 2026</span>
+              <span>🏃 Current: 8K runs</span>
+            </div>
+          </div>
+
+          <div class="goal-item">
+            <div class="goal-header-row">
+              <h4 class="goal-title">Learn to cook 10 new recipes</h4>
+              <span class="goal-badge">In Progress</span>
+            </div>
+            <p class="goal-description">Expand cooking skills with diverse cuisines</p>
+            <div class="goal-progress">
+              <div class="goal-progress-label">
+                <span>Progress</span>
+                <span>4 of 10 recipes</span>
+              </div>
+              <div class="goal-progress-bar">
+                <div class="goal-progress-fill" style="width: 40%;"></div>
+              </div>
+            </div>
+            <div class="goal-meta">
+              <span>📅 Target: June 30, 2026</span>
+              <span>👨‍🍳 Latest: Thai Green Curry</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+  <script src="connect.js"></script>
+</body>
+
+</html>

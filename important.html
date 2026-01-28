@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Important Tasks - TaskFlow</title>
+    <link rel="stylesheet" href="important.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>" type="image/svg+xml">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <input type="checkbox" id="sidebar-toggle" />
+
+        <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>TaskFlow</h2>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-item" onclick="allTasks()">
+                    <span class="nav-icon">📋</span>
+                    <span>All Tasks</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">📌</span>
+                    <span>Important</span>
+                    <span class="nav-count">5</span>
+                </div>
+                <div class="nav-item" onclick="completed()">
+                    <span class="nav-icon">✅</span>
+                    <span>Completed</span>
+                    <span class="nav-count">12</span>
+                </div>
+                <div class="nav-item" onclick="today()">
+                    <span class="nav-icon">📅</span>
+                    <span>Today</span>
+                    <span class="nav-count">5</span>
+                </div>
+                <div class="nav-item" onclick="upcoming()">
+                    <span class="nav-icon">📆</span>
+                    <span>Upcoming</span>
+                </div>
+            </nav>
+
+            <div class="projects">
+                <h3>Projects</h3>
+                <div class="project-item" onclick="workProject()">
+                    <div class="project-color" style="background: #2ec4b6;"></div>
+                    <span>Work Projects</span>
+                </div>
+                <div class="project-item" onclick="personal()">
+                    <div class="project-color" style="background: #ff6b9d;"></div>
+                    <span>Personal</span>
+                </div>
+                <div class="project-item" onclick="learning()">
+                    <div class="project-color" style="background: #f59e0b;"></div>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="mobile-header">
+                <h2>Important Tasks</h2>
+                <label for="sidebar-toggle" class="menu-toggle">☰</label>
+            </div>
+
+            <div class="main-header">
+                <div class="header-top">
+                    <div class="header-icon">⚡</div>
+                    <div>
+                        <h1>Important Tasks</h1>
+                        <p>High-priority items that need your attention</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-banner">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-content">
+                    <h3>2 tasks are overdue</h3>
+                    <p>Review and update these tasks to stay on track with your goals</p>
+                </div>
+            </div>
+
+
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <div class="quick-stat-label">Urgent Priority</div>
+                    <div class="quick-stat-value">2</div>
+                </div>
+                <div class="quick-stat">
+                    <div class="quick-stat-label">High Priority</div>
+                    <div class="quick-stat-value">2</div>
+                </div>
+                <div class="quick-stat">
+                    <div class="quick-stat-label">Starred Tasks</div>
+                    <div class="quick-stat-value">1</div>
+                </div>
+            </div>
+
+            <div class="priority-section">
+                <div class="section-header">
+                    <span class="priority-badge urgent">
+                        <span>🔥</span>
+                        Urgent Priority
+                    </span>
+                    <span class="section-count">2 tasks</span>
+                </div>
+
+                <div class="important-tasks-grid">
+
+                    <div class="important-task urgent">
+                        <div class="task-header">
+                            <div class="task-checkbox"></div>
+                            <div class="task-main">
+                                <div class="task-title-row">
+                                    <h3 class="task-title">Fix critical production bug in authentication</h3>
+                                    <span class="star-icon">⭐</span>
+                                </div>
+                                <p class="task-description">Users are unable to log in due to session timeout issues.
+                                    This is affecting 30% of active users and needs immediate attention.</p>
+                                <div class="task-footer">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span class="overdue">Overdue by 2 days</span>
+                                    </div>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">👤</span>
+                                        <span>Assigned to you</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="important-task urgent">
+                        <div class="task-header">
+                            <div class="task-checkbox"></div>
+                            <div class="task-main">
+                                <div class="task-title-row">
+                                    <h3 class="task-title">Submit quarterly report to management</h3>
+                                    <span class="star-icon">☆</span>
+                                </div>
+                                <p class="task-description">Compile Q4 performance metrics, team achievements, and
+                                    budget analysis for executive review.</p>
+                                <div class="task-footer">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span class="due-soon">Due today</span>
+                                    </div>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📎</span>
+                                        <span>3 attachments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="priority-section">
+                <div class="section-header">
+                    <span class="priority-badge high">
+                        <span>⚡</span>
+                        High Priority
+                    </span>
+                    <span class="section-count">2 tasks</span>
+                </div>
+
+                <div class="important-tasks-grid">
+
+                    <div class="important-task high">
+                        <div class="task-header">
+                            <div class="task-checkbox"></div>
+                            <div class="task-main">
+                                <div class="task-title-row">
+                                    <h3 class="task-title">Prepare presentation for client meeting</h3>
+                                    <span class="star-icon">☆</span>
+                                </div>
+                                <p class="task-description">Create slide deck showcasing our solution architecture and
+                                    implementation timeline for the new enterprise client.</p>
+                                <div class="task-footer">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span class="due-soon">Due tomorrow</span>
+                                    </div>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">💬</span>
+                                        <span>5 comments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="important-task high">
+                        <div class="task-header">
+                            <div class="task-checkbox"></div>
+                            <div class="task-main">
+                                <div class="task-title-row">
+                                    <h3 class="task-title">Review and approve team's code changes</h3>
+                                    <span class="star-icon">☆</span>
+                                </div>
+                                <p class="task-description">Review 8 pending pull requests from team members before the
+                                    sprint deployment on Friday.</p>
+                                <div class="task-footer">
+                                    <span class="task-tag">Work Projects</span>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>Due in 2 days</span>
+                                    </div>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">🔗</span>
+                                        <span>8 items to review</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="priority-section">
+                <div class="section-header">
+                    <span class="priority-badge flagged">
+                        <span>⭐</span>
+                        Starred Tasks
+                    </span>
+                    <span class="section-count">1 task</span>
+                </div>
+
+                <div class="important-tasks-grid">
+
+                    <div class="important-task flagged">
+                        <div class="task-header">
+                            <div class="task-checkbox"></div>
+                            <div class="task-main">
+                                <div class="task-title-row">
+                                    <h3 class="task-title">Plan team building event for Q1</h3>
+                                    <span class="star-icon">⭐</span>
+                                </div>
+                                <p class="task-description">Organize a fun team activity to boost morale and
+                                    collaboration. Get input from team members on preferences.</p>
+                                <div class="task-footer">
+                                    <span class="task-tag">Personal</span>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">📅</span>
+                                        <span>Due next week</span>
+                                    </div>
+                                    <div class="task-meta-item">
+                                        <span class="meta-icon">👥</span>
+                                        <span>Team collaboration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+    <script src="connect.js"> </script>
+</body>
+
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Projects - TaskFlow</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232ec4b6'/><stop offset='100%' style='stop-color:%23ff6b9d'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>✓</text></svg>"
+        type="image/svg+xml">
+
+    <link rel="stylesheet" href="workprojects.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+
+        <input type="checkbox" id="sidebar-toggle" />
+
+        <label for="sidebar-toggle" class="sidebar-overlay"></label>
+
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>TaskFlow</h2>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-item" onclick="allTasks()">
+                    <span class="nav-icon">📋</span>
+                    <span>All Tasks</span>
+                    <span class="nav-count">24</span>
+                </div>
+                <div class="nav-item" onclick="Important()">
+                    <span class="nav-icon">📌</span>
+                    <span>Important</span>
+                    <span class="nav-count">5</span>
+                </div>
+                <div class="nav-item" onclick="completed()">
+                    <span class="nav-icon">✅</span>
+                    <span>Completed</span>
+                    <span class="nav-count">42</span>
+                </div>
+                <div class="nav-item" onclick="today()">
+                    <span class="nav-icon">📅</span>
+                    <span>Today</span>
+                    <span class="nav-count">7</span>
+                </div>
+                <div class="nav-item" onclick="upcoming()">
+                    <span class="nav-icon">📆</span>
+                    <span>Upcoming</span>
+                    <span class="nav-count">12</span>
+                </div>
+            </nav>
+
+            <div class="projects">
+                <h3>Projects</h3>
+                <div class="project-item active">
+                    <div class="project-color" style="background: #2ec4b6;"></div>
+                    <span>Work Projects</span>
+                </div>
+                <div class="project-item" onclick="personal()">
+                    <div class="project-color" style="background: #ff6b9d;"></div>
+                    <span>Personal</span>
+                </div>
+                <div class="project-item" onclick="learning()">
+                    <div class="project-color" style="background: #f59e0b;"></div>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <div class="mobile-header">
+                <h2>Work Projects</h2>
+                <label for="sidebar-toggle" class="menu-toggle">☰</label>
+            </div>
+
+
+            <div class="project-header">
+                <div class="project-top">
+                    <div class="project-info">
+                        <div class="project-title-row">
+                            <div class="project-icon">💼</div>
+                            <h1>Work Projects</h1>
+                        </div>
+                        <p class="project-description">Professional tasks and team deliverables for Q1 2026</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">👥</span>
+                                <div class="project-team">
+                                    <div class="team-avatars">
+                                        <div class="avatar">JD</div>
+                                        <div class="avatar">SM</div>
+                                        <div class="avatar">AK</div>
+                                        <div class="avatar">+5</div>
+                                    </div>
+                                    <span>8 team members</span>
+                                </div>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span>Due: March 31, 2026</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">🎯</span>
+                                <span>Sprint 3 of 5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-progress-section">
+                    <div class="progress-label">
+                        <span>Overall Progress</span>
+                        <span>68% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="sprint-banner">
+                <div class="sprint-info">
+                    <h3>🚀 Current Sprint: Feature Development</h3>
+                    <p class="sprint-dates">Jan 20 - Feb 3, 2026 • 6 days remaining</p>
+                </div>
+                <div class="sprint-stats">
+                    <div class="sprint-stat">
+                        <div class="sprint-stat-value">15</div>
+                        <div class="sprint-stat-label">Total</div>
+                    </div>
+                    <div class="sprint-stat">
+                        <div class="sprint-stat-value">7</div>
+                        <div class="sprint-stat-label">In Progress</div>
+                    </div>
+                    <div class="sprint-stat">
+                        <div class="sprint-stat-value">5</div>
+                        <div class="sprint-stat-label">Done</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="project-stats">
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Active Tasks</span>
+                        <span class="stat-emoji">📝</span>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-subtext">Currently in progress</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Blocked</span>
+                        <span class="stat-emoji">🚧</span>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-subtext">Need attention</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Velocity</span>
+                        <span class="stat-emoji">⚡</span>
+                    </div>
+                    <div class="stat-value">32</div>
+                    <div class="stat-subtext">Points per sprint</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Team Load</span>
+                        <span class="stat-emoji">👥</span>
+                    </div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-subtext">Capacity utilization</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <div class="tab active">Board <span class="tab-badge">15</span></div>
+                    <div class="tab">List <span class="tab-badge">15</span></div>
+                    <div class="tab">Timeline</div>
+                    <div class="tab">Team</div>
+                    <div class="tab">Reports</div>
+                </div>
+            </div>
+
+
+            <div class="kanban-board">
+
+
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span>📋</span>
+                            <span>To Do</span>
+                        </div>
+                        <span class="column-count">3</span>
+                    </div>
+
+                    <div class="kanban-tasks">
+
+                        <div class="task-card high">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Design system documentation update</div>
+                                <div class="priority-dot high"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Documentation</span>
+                                <span class="task-card-tag">Design</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">SM</div>
+                                    <span>Sarah M.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Feb 1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card medium">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Create user onboarding flow</div>
+                                <div class="priority-dot medium"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">UX</span>
+                                <span class="task-card-tag">Feature</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">AK</div>
+                                    <span>Alex K.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Feb 3</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card low">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Update dependencies to latest versions</div>
+                                <div class="priority-dot low"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Maintenance</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">JD</div>
+                                    <span>John D.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Feb 5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-task-btn">
+                            <span>+</span>
+                            <span>Add task</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- IN PROGRESS COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span>⏳</span>
+                            <span>In Progress</span>
+                        </div>
+                        <span class="column-count">7</span>
+                    </div>
+
+                    <div class="kanban-tasks">
+
+                        <div class="task-card high">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Fix critical authentication bug</div>
+                                <div class="priority-dot high"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Bug</span>
+                                <span class="task-card-tag">Backend</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">JD</div>
+                                    <span>John D.</span>
+                                </div>
+                                <div class="task-card-due overdue">
+                                    <span>⚠️</span>
+                                    <span>Overdue</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card high">
+                            <div class="task-card-header">
+                                <div class="task-card-title">API rate limiting implementation</div>
+                                <div class="priority-dot high"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Backend</span>
+                                <span class="task-card-tag">Feature</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">MR</div>
+                                    <span>Mike R.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Today</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card medium">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Build dashboard analytics component</div>
+                                <div class="priority-dot medium"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Frontend</span>
+                                <span class="task-card-tag">UI</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">LW</div>
+                                    <span>Lisa W.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Jan 30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card medium">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Database migration script</div>
+                                <div class="priority-dot medium"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Database</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">TC</div>
+                                    <span>Tom C.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Jan 31</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-task-btn">
+                            <span>+</span>
+                            <span>Add task</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- REVIEW COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span>👀</span>
+                            <span>Review</span>
+                        </div>
+                        <span class="column-count">5</span>
+                    </div>
+
+                    <div class="kanban-tasks">
+
+                        <div class="task-card medium">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Code review: Payment integration</div>
+                                <div class="priority-dot medium"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Review</span>
+                                <span class="task-card-tag">Backend</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">PR</div>
+                                    <span>Paul R.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Today</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card low">
+                            <div class="task-card-header">
+                                <div class="task-card-title">QA testing: Search functionality</div>
+                                <div class="priority-dot low"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">QA</span>
+                                <span class="task-card-tag">Testing</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">NK</div>
+                                    <span>Nina K.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Jan 29</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card low">
+                            <div class="task-card-header">
+                                <div class="task-card-title">Design review: Mobile screens</div>
+                                <div class="priority-dot low"></div>
+                            </div>
+                            <div class="task-card-tags">
+                                <span class="task-card-tag">Design</span>
+                                <span class="task-card-tag">Mobile</span>
+                            </div>
+                            <div class="task-card-footer">
+                                <div class="task-card-assignee">
+                                    <div class="avatar" style="width: 24px; height: 24px; font-size: 11px;">SM</div>
+                                    <span>Sarah M.</span>
+                                </div>
+                                <div class="task-card-due">
+                                    <span>📅</span>
+                                    <span>Jan 30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-task-btn">
+                            <span>+</span>
+                            <span>Add task</span>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="connect.js"></script>
+</body>
+
+</html>
