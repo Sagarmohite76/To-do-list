@@ -62,6 +62,15 @@ const TaskManager = {
         this.saveTasks(tasks);
     },
 
+    toggleStar(id) {
+        const tasks = this.getTasks();
+        const task = tasks.find(t => t.id === id);
+        if (task) {
+            task.isStarred = !task.isStarred;
+            this.saveTasks(tasks);
+        }
+    },
+
     // Filtering Logic
     getFilteredTasks(filter) {
         const tasks = this.getTasks();
@@ -82,6 +91,8 @@ const TaskManager = {
                 return tasks.filter(t => t.category === 'personal');
             case 'learning':
                 return tasks.filter(t => t.category === 'learning');
+            case 'starred':
+                return tasks.filter(t => t.isStarred);
             default:
                 return tasks;
         }
