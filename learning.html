@@ -315,6 +315,7 @@
             <span>✏️</span>
             <span>Learning Tasks</span>
           </h2>
+          <button class="add-task-btn" id="add-learning-task" style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: inherit;">+ Add Task</button>
         </div>
 
         <div class="tasks-grid">
@@ -499,6 +500,19 @@
                 `
             });
         }
+
+        // Add Learning Task functionality
+        document.getElementById('add-learning-task').addEventListener('click', () => {
+            const title = prompt("What do you want to learn next?");
+            if (title) {
+                TaskManager.addTask({
+                    title: title,
+                    category: 'learning',
+                    priority: 'medium',
+                    description: 'Learning objective'
+                });
+            }
+        });
 
         window.addEventListener('tasksUpdated', renderLearningContent);
         document.addEventListener('DOMContentLoaded', renderLearningContent);
