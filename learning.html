@@ -460,7 +460,48 @@
     </main>
 
   </div>
-  <script src="connect.js"></script>
-</body>
+    <script src="taskManager.js"></script>
+    <script src="connect.js"></script>
+    <script>
+        function renderLearningContent() {
+            const container = document.querySelector('.tasks-grid');
+            const stats = TaskManager.getStats();
+            const learningTasks = TaskManager.getFilteredTasks('learning');
 
-</html>
+            // Update stats
+            const statValues = document.querySelectorAll('.study-stat-value');
+            if (statValues.length >= 4) {
+               statValues[3].textContent = learningTasks.filter(t => t.status).length;
+            }
+
+            // Render Tasks
+            TaskManager.renderTasksToContainer(container, 'learning', {
+                itemClass: 'learning-task',
+                template: (task) => `
+                    <div class="task-top">
+                        <div class="task-checkbox ${task.status ? 'checked' : ''}"></div>
+                        <div class="task-content">
+                            <div class="task-header-row">
+                                <div class="task-title" style="${task.status ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${task.title}</div>
+                                <span class="task-type-badge">${task.priority.toUpperCase()}</span>
+                            </div>
+                            <div class="task-description">${task.description || 'No description provided.'}</div>
+                            <div class="task-footer-row">
+                                <span class="task-tag">${task.category}</span>
+                                <div class="task-duration">
+                                    <span>⏱️</span>
+                                    <span>Active</span>
+                                </div>
+                                <button class="delete-btn" style="margin-left: auto; background: none; border: none; cursor: pointer; opacity: 0.5;">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            });
+        }
+
+        window.addEventListener('tasksUpdated', renderLearningContent);
+        document.addEventListener('DOMContentLoaded', renderLearningContent);
+    </script>
+</body>
+</html>

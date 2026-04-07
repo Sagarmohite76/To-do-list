@@ -105,7 +105,6 @@
           <span>🌟</span>
           <span>Wellness Dashboard</span>
         </h2>
-
         <div class="wellness-grid">
           <div class="wellness-card">
             <div class="wellness-icon">💪</div>
@@ -394,7 +393,53 @@
     </main>
 
   </div>
-  <script src="connect.js"></script>
-</body>
+    <script src="taskManager.js"></script>
+    <script src="connect.js"></script>
+    <script>
+        function renderPersonalContent() {
+            const container = document.querySelector('.habits-list');
+            const personalTasks = TaskManager.getFilteredTasks('personal');
 
+            // Render Habits
+            TaskManager.renderTasksToContainer(container, 'personal', {
+                itemClass: 'habit-item',
+                template: (task) => `
+                    <div class="habit-checkbox ${task.status ? 'checked' : ''}"></div>
+                    <div class="habit-info">
+                        <div class="habit-name" style="${task.status ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${task.title}</div>
+                        <div class="habit-time">${task.description || "Active Goal"}</div>
+                    </div>
+                    <div class="habit-streak">
+                        <div class="streak-dot ${task.status ? 'active' : ''}"></div>
+                        <div class="streak-dot ${task.isStarred ? 'active' : ''}"></div>
+                        <div class="streak-dot"></div>
+                        <div class="streak-dot"></div>
+                        <div class="streak-dot"></div>
+                    </div>
+                    <button class="delete-btn" style="background: none; border: none; cursor: pointer; opacity: 0.5; margin-left: 10px;">🗑️</button>
+                `
+            });
+
+            // Update categories preview
+            const categoryCounts = document.querySelectorAll('.category-count');
+            if (categoryCounts[1]) categoryCounts[1].textContent = personalTasks.length;
+        }
+
+        // Add Goal functionality
+        document.querySelector('.add-goal-btn').addEventListener('click', () => {
+            const title = prompt("Enter your new personal goal:");
+            if (title) {
+                TaskManager.addTask({
+                    title: title,
+                    category: 'personal',
+                    priority: 'medium',
+                    description: 'New personal goal'
+                });
+            }
+        });
+
+        window.addEventListener('tasksUpdated', renderPersonalContent);
+        document.addEventListener('DOMContentLoaded', renderPersonalContent);
+    </script>
+</body>
 </html>

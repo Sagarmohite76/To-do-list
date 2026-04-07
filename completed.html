@@ -407,7 +407,77 @@
         </main>
 
     </div>
+    <script src="taskManager.js"></script>
     <script src="connect.js"></script>
-</body>
+    <script>
+        function renderCompletedView() {
+            const container = document.querySelector('.timeline-tasks');
+            const stats = TaskManager.getStats();
+            
+            // Update Stats
+            if (stats) {
+                const statValues = document.querySelectorAll('.stat-value');
+                if (statValues[0]) statValues[0].textContent = stats.completed; // Simplification
+                if (statValues[1]) statValues[1].textContent = stats.completed;
+                if (statValues[2]) statValues[2].textContent = `${stats.percent}%`;
+                
+                const bannerTitle = document.querySelector('.celebration-content h3');
+                if (bannerTitle) bannerTitle.textContent = `Great work! You've completed ${stats.completed} tasks`;
+            }
 
-</html>
+            // Render List
+            TaskManager.renderTasksToContainer(container, 'completed', {
+                itemClass: 'completed-task',
+                template: (task) => `
+                    <div class="task-main-content">
+                        <div class="checkmark">✓</div>
+                        <div class="task-text">
+                            <div class="task-title" style="text-decoration: line-through;">${task.title}</div>
+                            <div class="task-description">${task.description || 'No description'}</div>
+                        </div>
+                    </div>
+                    <div class="task-meta-row">
+                        <span class="task-tag">${task.category}</span>
+                        <div class="task-meta-item">
+                            <span class="meta-icon">✓</span>
+                            <span>Completed recently</span>
+                        </div>
+                        <button class="undo-btn" style="cursor: pointer;">↺ Undo</button>
+                        <button class="delete-btn" style="background: none; border: none; cursor: pointer; opacity: 0.5; margin-left: 10px;">🗑️</button>
+                    </div>
+                `
+            });
+
+            // Add Undo listeners (since the generic renderer handles delete/toggle if using standard classes, 
+            // but we used custom template, we should add them here)
+            container.querySelectorAll('.undo-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = Number(btn.closest('.completed-task').dataset.id);
+                    TaskManager.toggleTask(id);
+                });
+            });
+            
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = Number(btn.closest('.completed-task').dataset.id);
+                    TaskManager.deleteTask(id);
+                });
+            });
+        }
+
+        window.addEventListener('tasksUpdated', renderCompletedView);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCompletedView();
+            
+            const clearBtn = document.querySelector('.clear-all-btn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to clear all completed tasks?')) {
+                        TaskManager.clearCompleted();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

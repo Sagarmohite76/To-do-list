@@ -553,7 +553,144 @@
         </main>
 
     </div>
+    <script src="taskManager.js"></script>
     <script src="connect.js"></script>
-</body>
+    <script>
+        function renderUpcomingContent() {
+            const tasks = TaskManager.getTasks().filter(t => !t.status);
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            
+            // 1. Update Stats
+            const oneWeekLater = new Date(today);
+            oneWeekLater.setDate(today.getDate() + 7);
+            const twoWeeksLater = new Date(today);
+            twoWeeksLater.setDate(today.getDate() + 14);
+            const oneMonthLater = new Date(today);
+            oneMonthLater.setMonth(today.getMonth() + 1);
 
-</html>
+            const thisWeekTasks = tasks.filter(t => {
+                if (!t.dueDate) return false;
+                const d = new Date(t.dueDate);
+                return d >= today && d < oneWeekLater;
+            });
+            const nextWeekTasks = tasks.filter(t => {
+                if (!t.dueDate) return false;
+                const d = new Date(t.dueDate);
+                return d >= oneWeekLater && d < twoWeeksLater;
+            });
+            const laterTasks = tasks.filter(t => {
+                if (!t.dueDate) return false;
+                const d = new Date(t.dueDate);
+                return d >= twoWeeksLater;
+            });
+
+            const statValues = document.querySelectorAll('.stat-value');
+            if (statValues.length >= 4) {
+                statValues[0].textContent = thisWeekTasks.length;
+                statValues[1].textContent = nextWeekTasks.length;
+                statValues[2].textContent = tasks.length;
+                statValues[3].textContent = tasks.filter(t => t.priority === 'high').length;
+            }
+
+            const bannerTitle = document.querySelector('.overview-content h3');
+            if (bannerTitle) bannerTitle.textContent = `${tasks.length} tasks scheduled in the next 30 days`;
+
+            // 2. Render Timeline
+            const containers = document.querySelectorAll('.date-tasks-grid');
+            const subtitles = document.querySelectorAll('.date-subtitle');
+
+            // This Week
+            if (containers[0]) {
+                renderTimelineSection(containers[0], thisWeekTasks, "No tasks this week.");
+                if (subtitles[0]) subtitles[0].textContent = `${thisWeekTasks.length} tasks`;
+            }
+            // Next Week
+            if (containers[1]) {
+                renderTimelineSection(containers[1], nextWeekTasks, "No tasks next week.");
+                if (subtitles[1]) subtitles[1].textContent = `${nextWeekTasks.length} tasks`;
+            }
+            // Later
+            if (containers[2]) {
+                renderTimelineSection(containers[2], laterTasks, "No tasks scheduled later.");
+                if (subtitles[2]) subtitles[2].textContent = `${laterTasks.length} tasks`;
+            }
+
+            // 3. Mark Calendar
+            markCalendar(tasks);
+        }
+
+        function renderTimelineSection(container, tasks, emptyMsg) {
+            container.innerHTML = '';
+            if (tasks.length === 0) {
+                container.innerHTML = `<p style="padding: 20px; opacity: 0.5;">${emptyMsg}</p>`;
+                return;
+            }
+
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = `upcoming-task ${task.priority}`;
+                taskEl.innerHTML = `
+                    <div class="task-top">
+                        <div class="task-checkbox ${task.status ? 'checked' : ''}" onclick="TaskManager.toggleTask(${task.id})"></div>
+                        <div class="task-content">
+                            <div class="task-header-row">
+                                <div class="task-title">${task.title}</div>
+                                <span class="priority-badge ${task.priority}">${task.priority.toUpperCase()}</span>
+                            </div>
+                            <div class="task-description">${task.description || 'No description'}</div>
+                            <div class="task-footer-row">
+                                <span class="task-tag">${task.category}</span>
+                                <div class="task-date">
+                                    <span class="task-date-icon">📅</span>
+                                    <span>${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No date'}</span>
+                                </div>
+                                <button class="delete-btn" onclick="TaskManager.deleteTask(${task.id})" style="margin-left: auto; background: none; border: none; cursor: pointer; opacity: 0.5;">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(taskEl);
+            });
+        }
+
+        function markCalendar(tasks) {
+            const days = document.querySelectorAll('.calendar-day:not(.other-month)');
+            days.forEach(day => {
+                day.classList.remove('has-tasks');
+                const dayNum = parseInt(day.textContent);
+                // Simple check for FEB 2026 (as per the UI title)
+                const hasTask = tasks.some(t => {
+                    if (!t.dueDate) return false;
+                    const d = new Date(t.dueDate);
+                    return d.getMonth() === 1 && d.getFullYear() === 2026 && d.getDate() === dayNum;
+                });
+                if (hasTask) day.classList.add('has-tasks');
+            });
+        }
+
+        // View Switching
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const view = btn.textContent.toLowerCase();
+                const calendar = document.querySelector('.calendar-section');
+                const timelineSections = document.querySelectorAll('.date-section');
+                
+                if (view === 'calendar') {
+                    calendar.style.display = 'block';
+                    timelineSections.forEach(s => s.style.display = 'none');
+                } else if (view === 'timeline') {
+                    calendar.style.display = 'none';
+                    timelineSections.forEach(s => s.style.display = 'block');
+                }
+            });
+        });
+
+        window.addEventListener('tasksUpdated', renderUpcomingContent);
+        document.addEventListener('DOMContentLoaded', renderUpcomingContent);
+    </script>
+</body>
+</html>

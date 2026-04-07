@@ -248,90 +248,122 @@
         </main>
 
     </div>
-    <script src="connect.js"> </script>
+    <script src="taskManager.js"></script>
+    <script src="connect.js"></script>
     <script>
-
-        function getTasks() {
-            return JSON.parse(localStorage.getItem("tasks")) || [];
-        }
-
-        function saveTask(tasks) {
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-        }
-
-
-        const form = document.getElementById("form");
-        const task = document.getElementById("task");
+        const taskInput = document.getElementById("task");
+        const taskForm = document.getElementById("form");
         const tasksList = document.getElementById("list");
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
 
-            const taskName = getTasks();
-            taskName.push({
-                id: Date.now(),
-                task: task.value,
-                status: false
-
+        // Initialize dashboard
+        function initDashboard() {
+            renderTasks();
+            updateDashboardStats();
+            
+            // Filter click handlers
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.textContent.toLowerCase().replace(' ', '');
+                    if (currentFilter === 'highpriority') currentFilter = 'important';
+                    renderTasks();
+                });
             });
-            saveTask(taskName);
-            form.reset();
-            window.location.reload();
+        }
 
-        })
+        function updateDashboardStats() {
+            const stats = TaskManager.getStats();
+            
+            // Update stat cards
+            const statCards = document.querySelectorAll('.stat-value');
+            if (statCards[0]) statCards[0].textContent = stats.total;
+            if (statCards[1]) statCards[1].textContent = stats.active;
+            if (statCards[2]) statCards[2].textContent = stats.completed;
 
+            // Update progress bar
+            const progressFill = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+            if (progressFill) progressFill.style.width = `${stats.percent}%`;
+            if (progressText) progressText.textContent = `${stats.completed} of ${stats.total} tasks completed`;
 
-        let data = JSON.parse(localStorage.getItem("tasks"));
-        // console.log(data);
-
-        data.forEach((e) => {
-            tasksList.innerHTML += `
-        <div class="task ${e.status ? "completed" : ""}" data-id="${e.id}">
-            <div class="checkbox-wrapper">
-                <div class="checkbox"></div>
-            </div>
-            <div class="task-content">
-                <div class="task-title">${e.task}</div>
-                <div class="task-meta">
-                    <span class="task-tag">Work Projects</span>
-                    <span>${e.status ? "Completed" : "Due today"}</span>
-                </div>
-            </div>
-            <div class="task-priority high"></div>
-        </div>
-    `;
-        });
-
-
-
-        tasksList.addEventListener("click", (e) => {
-            if (!e.target.classList.contains("checkbox")) return;
-
-            const taskDiv = e.target.closest(".task");
-            const taskId = Number(taskDiv.dataset.id);
-
-            taskDiv.classList.toggle("completed");
-
-            let tasks = getTasks();
-            const taskObj = tasks.find(t => t.id === taskId);
-
-            if (taskObj) {
-                taskObj.status = taskDiv.classList.contains("completed");
-                saveTask(tasks);
+            // Update list header count
+            const tasksCount = document.querySelector('.tasks-count');
+            if (tasksCount) {
+                const filtered = TaskManager.getFilteredTasks(currentFilter);
+                tasksCount.textContent = `${filtered.length} tasks`;
             }
-        });
 
+            // Update footer count
+            const footerText = document.querySelector('.footer-text');
+            if (footerText) footerText.textContent = `${stats.active} tasks remaining`;
+        }
+
+        function renderTasks() {
+            const tasks = TaskManager.getFilteredTasks(currentFilter);
+            tasksList.innerHTML = '';
+
+            if (tasks.length === 0) {
+                tasksList.innerHTML = '<div class="task"><div class="task-content"><div class="task-title">No tasks found</div></div></div>';
+                return;
+            }
+
+            tasks.sort((a, b) => b.id - a.id).forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = `task ${task.status ? 'completed' : ''}`;
+                taskEl.dataset.id = task.id;
+                
+                taskEl.innerHTML = `
+                    <div class="checkbox-wrapper">
+                        <div class="checkbox"></div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta">
+                            <span class="task-tag">${task.category || 'General'}</span>
+                            <span>${task.status ? 'Completed' : (task.dueDate ? 'Due soon' : 'No deadline')}</span>
+                        </div>
+                    </div>
+                    <div class="task-priority ${task.priority}"></div>
+                    <button class="delete-btn" style="background: none; border: none; cursor: pointer; opacity: 0.5; transition: 0.3s; padding: 5px;">🗑️</button>
+                `;
+
+                // Add event listeners
+                taskEl.querySelector('.checkbox').addEventListener('click', () => {
+                    TaskManager.toggleTask(task.id);
+                });
+
+                taskEl.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    TaskManager.deleteTask(task.id);
+                });
+
+                tasksList.appendChild(taskEl);
+            });
+        }
+
+        taskForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (!taskInput.value.trim()) return;
+
+            TaskManager.addTask({
+                title: taskInput.value,
+                category: "work", // Default for now
+                priority: "medium"
+            });
+            
+            taskForm.reset();
+        });
 
         function clearCompleted() {
-
-            let data2 = JSON.parse(localStorage.getItem('tasks'));
-             let completed=data2.filter(e=>e.status==true);
-             console.log(completed);
-             
-             
+            TaskManager.clearCompleted();
         }
 
-
+        document.addEventListener('DOMContentLoaded', initDashboard);
     </script>
+
 </body>
 
 </html>

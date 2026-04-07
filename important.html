@@ -279,7 +279,101 @@
         </main>
 
     </div>
-    <script src="connect.js"> </script>
-</body>
+    <script src="taskManager.js"></script>
+    <script src="connect.js"></script>
+    <script>
+        function renderImportantTasks() {
+            const tasks = TaskManager.getFilteredTasks('important');
+            const urgentGrid = document.querySelectorAll('.important-tasks-grid')[0];
+            const highGrid = document.querySelectorAll('.important-tasks-grid')[1];
+            const starredGrid = document.querySelectorAll('.important-tasks-grid')[2];
 
-</html>
+            // Clear all grids
+            [urgentGrid, highGrid, starredGrid].forEach(grid => {
+                if (grid) grid.innerHTML = '';
+            });
+
+            if (tasks.length === 0) {
+                if (urgentGrid) urgentGrid.innerHTML = '<p style="grid-column: 1/-1; opacity: 0.5;">No important tasks found.</p>';
+                updateImportantStats(0, 0, 0);
+                return;
+            }
+
+            let urgentCount = 0, highCount = 0, starredCount = 0;
+
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = `important-task ${task.priority} ${task.status ? 'completed' : ''}`;
+                
+                taskEl.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-checkbox ${task.status ? 'checked' : ''}"></div>
+                        <div class="task-main">
+                            <div class="task-title-row">
+                                <h3 class="task-title" style="${task.status ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${task.title}</h3>
+                                <span class="star-icon" style="cursor: pointer;">${task.isStarred ? '⭐' : '☆'}</span>
+                            </div>
+                            <p class="task-description">${task.description || 'No description provided.'}</p>
+                            <div class="task-footer">
+                                <span class="task-tag">${task.category}</span>
+                                <div class="task-meta-item">
+                                    <span class="meta-icon">📅</span>
+                                    <span class="${task.status ? '' : 'due-soon'}">${task.status ? 'Completed' : 'Due soon'}</span>
+                                </div>
+                                <button class="delete-btn" style="margin-left: auto; background: none; border: none; cursor: pointer; opacity: 0.5;">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                taskEl.querySelector('.task-checkbox').addEventListener('click', () => TaskManager.toggleTask(task.id));
+                taskEl.querySelector('.star-icon').addEventListener('click', () => {
+                    // We don't have a specific toggleStarred in taskManager yet, let's just toggle isStarred manually and save
+                    const allTasks = TaskManager.getTasks();
+                    const t = allTasks.find(item => item.id === task.id);
+                    if (t) {
+                        t.isStarred = !t.isStarred;
+                        TaskManager.saveTasks(allTasks);
+                    }
+                });
+                taskEl.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    TaskManager.deleteTask(task.id);
+                });
+
+                // Determine which grid to put it in
+                if (task.isStarred) {
+                    starredGrid.appendChild(taskEl);
+                    starredCount++;
+                } else if (task.priority === 'high') {
+                    highGrid.appendChild(taskEl);
+                    highCount++;
+                } else if (task.priority === 'urgent' || task.priority === 'high') {
+                    urgentGrid.appendChild(taskEl);
+                    urgentCount++;
+                } else {
+                    // Default to high grid if it's "important" (e.g. starred but low priority)
+                    highGrid.appendChild(taskEl);
+                }
+            });
+
+            updateImportantStats(urgentCount, highCount, starredCount);
+        }
+
+        function updateImportantStats(urgent, high, starred) {
+            const values = document.querySelectorAll('.quick-stat-value');
+            if (values[0]) values[0].textContent = urgent;
+            if (values[1]) values[1].textContent = high;
+            if (values[2]) values[2].textContent = starred;
+
+            const counts = document.querySelectorAll('.section-count');
+            if (counts[0]) counts[0].textContent = `${urgent} tasks`;
+            if (counts[1]) counts[1].textContent = `${high} tasks`;
+            if (counts[2]) counts[2].textContent = `${starred} tasks`;
+        }
+
+        window.addEventListener('tasksUpdated', renderImportantTasks);
+        document.addEventListener('DOMContentLoaded', renderImportantTasks);
+    </script>
+</body>
+</html>

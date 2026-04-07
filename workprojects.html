@@ -474,7 +474,94 @@
 
     </div>
 
+    <script src="taskManager.js"></script>
     <script src="connect.js"></script>
-</body>
+    <script>
+        function renderWorkBoard() {
+            const tasks = TaskManager.getFilteredTasks('work');
+            const todoColumn = document.querySelectorAll('.kanban-tasks')[0];
+            const inProgressColumn = document.querySelectorAll('.kanban-tasks')[1];
+            const reviewColumn = document.querySelectorAll('.kanban-tasks')[2];
 
-</html>
+            // Clear columns (keeping the Add button if possible, but easier to just re-add it)
+            if (todoColumn) todoColumn.innerHTML = '';
+            if (inProgressColumn) inProgressColumn.innerHTML = '';
+            if (reviewColumn) reviewColumn.innerHTML = '';
+
+            if (tasks.length === 0) {
+                if (todoColumn) todoColumn.innerHTML = '<p style="padding: 10px; opacity: 0.5;">No work tasks.</p>';
+            }
+
+            tasks.forEach(task => {
+                const card = document.createElement('div');
+                card.className = `task-card ${task.priority}`;
+                card.dataset.id = task.id;
+                
+                card.innerHTML = `
+                    <div class="task-card-header">
+                        <div class="task-card-title" style="${task.status ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${task.title}</div>
+                        <div class="priority-dot ${task.priority}"></div>
+                    </div>
+                    <div class="task-card-tags">
+                        <span class="task-card-tag">${task.category}</span>
+                        ${task.isStarred ? '<span class="task-card-tag" style="background: #f59e0b; color: white;">⭐</span>' : ''}
+                    </div>
+                    <div class="task-card-footer">
+                        <div class="task-card-assignee">
+                            <div class="avatar" style="width: 24px; height: 24px; font-size: 11px; cursor: pointer;">✓</div>
+                        </div>
+                        <button class="delete-btn" style="background: none; border: none; cursor: pointer; opacity: 0.5; margin-left: auto;">🗑️</button>
+                    </div>
+                `;
+
+                // Clicks
+                card.querySelector('.avatar').addEventListener('click', () => TaskManager.toggleTask(task.id));
+                card.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    TaskManager.deleteTask(task.id);
+                });
+
+                // Sort into columns
+                if (!task.status) {
+                    todoColumn.appendChild(card);
+                } else {
+                    reviewColumn.appendChild(card);
+                }
+            });
+
+            // Re-add "Add Task" buttons to columns
+            [todoColumn, inProgressColumn, reviewColumn].forEach(col => {
+                const btn = document.createElement('button');
+                btn.className = 'add-task-btn';
+                btn.innerHTML = '<span>+</span><span>Add task</span>';
+                btn.onclick = () => {
+                   const title = prompt("Enter work task title:");
+                   if (title) TaskManager.addTask({ title, category: 'work', priority: 'medium' });
+                };
+                col.appendChild(btn);
+            });
+
+            updateWorkStats(tasks);
+        }
+
+        function updateWorkStats(tasks) {
+            const stats = document.querySelectorAll('.stat-value');
+            if (stats.length >= 4) {
+                const total = tasks.length;
+                const completed = tasks.filter(t => t.status).length;
+                stats[0].textContent = total - completed; // Active
+                
+                // Update Progress Bar
+                const fill = document.querySelector('.progress-fill');
+                const label = document.querySelector('.progress-label span:last-child');
+                const percent = total > 0 ? Math.round((completed/total)*100) : 0;
+                if (fill) fill.style.width = `${percent}%`;
+                if (label) label.textContent = `${percent}% Complete`;
+            }
+        }
+
+        window.addEventListener('tasksUpdated', renderWorkBoard);
+        document.addEventListener('DOMContentLoaded', renderWorkBoard);
+    </script>
+</body>
+</html>
